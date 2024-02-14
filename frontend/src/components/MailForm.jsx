@@ -2,26 +2,43 @@ import { useForm } from "react-hook-form"
 import { postMail} from "../services/mail.service"
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState } from 'react';
 
 export default function App() {
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
+    const [htmlValue, setHtmlValue] = useState(""); // Estado para el valor del campo HTML
+
+    useEffect(() => {
+        // Escuchamos los cambios en el campo HTML
+        setHtmlValue(watch('html'));
+    }, [watch]);
 
     const onSubmit = async (data) => {
         const { email } = data;
         const emailsArray = email.split(',').map(e => e.trim());
 
+        // Iteramos sobre cada email
         emailsArray.forEach(async (email) => {
-            const uniqueId = uuidv4(); // Generar un identificador único
             try {
-                await postMail({ ...data, email, caseId: uniqueId }); // Agregar el identificador único a los datos antes de enviar la solicitud POST
+                const uniqueCaseId = uuidv4();
+                await postMail({ ...data, email, caseId: uniqueCaseId });
             } catch (error) {
                 console.error('Error al enviar el correo:', error);
             }
         });
 
         navigate('/');
+    }
+
+    // Función para detectar "/caseId" en el texto del campo HTML y rellenarlo automáticamente con la ID generada
+    const handleHtmlChange = (e) => {
+        const { value } = e.target;
+        if (value.includes('caseId')) {
+            const uniqueCaseId = uuidv4();
+            setValue('html', value.replace('caseId', uniqueCaseId)); // Reemplazamos "/caseId" con la ID generada
+        }
     }
 
     return(
@@ -69,9 +86,13 @@ export default function App() {
                         </div>
                         <div className="mb-2">
                             <label className="block mb-2 text-sm font-medium text-gray-900">Html</label>
-                            <textarea {...register('html',{
-                                required: true,
-                            })} rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+                            <textarea 
+                                {...register('html', { required: true })}
+                                onChange={handleHtmlChange} // Agregamos el evento onChange para detectar cambios en el campo HTML
+                                rows="4" 
+                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                placeholder="Leave a comment..."
+                            ></textarea>
                             {errors.name?.type === 'required' && <label className="block my-1 text-xs font-medium text-gray-500">Campo es requerido</label>}
                         </div>
                         <div className="my-1">
