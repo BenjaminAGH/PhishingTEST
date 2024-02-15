@@ -36,7 +36,9 @@ async function setupServer() {
     server.use(morgan("dev"));
     // Agrega el enrutador principal al servidor
     server.use("/api", indexRoutes);
-
+    // Agrega ruta assets
+    server.use("/assets", express.static("assets"));
+    
     // Inicia el servidor en el puerto especificado
     server.listen(PORT, () => {
       console.log(`=> Servidor corriendo en ${HOST}:${PORT}/api`);

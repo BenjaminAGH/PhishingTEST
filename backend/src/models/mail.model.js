@@ -20,11 +20,9 @@ const mailSchema = new mongoose.Schema({
     },
     text: {
         type: String,
-        required: true,
     },
     html: {
         type: String,
-        required: true,
     },
     isOpen: {
         type: Boolean,
@@ -32,6 +30,10 @@ const mailSchema = new mongoose.Schema({
         require: true
     },
     isHacked: {
+        type: Boolean,
+        default: false,
+    },
+    isViewed: {
         type: Boolean,
         default: false,
     },
