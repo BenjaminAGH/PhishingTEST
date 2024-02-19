@@ -1,12 +1,12 @@
-#Descripción
+# Descripción
 
 El siguiente software está enfocado en pruebas de Pishing de forma interna, para corroborar que los funcionarios de Asmar poseen una cultura pro-si adecuada. Para esto se realizan dos verificaciones: la primera, si el usuario entra al link sospechoso. La segunda, si este ingresa datos, lo que desplegará una pestaña de aviso.
 
-#Información Técnica
+# Información Técnica
 
 Para el desarrollo se utilizó como lenguaje principal Javascript, con sus herramientas node, express, react y vite.
 
-#IMPORTANTE
+# IMPORTANTE
 
 Para correr el servicio de manera local se deben seguir los siguientes pasos:
 
