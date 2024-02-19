@@ -32,7 +32,7 @@ Inicie el servidor de manera local
   npm run dev
 ```
 
-#Mejoras a Realizar
+# Mejoras a Realizar
 
 - Implementar el código en un servidor, para realizar de manera efectiva las pruebas internas.
 
