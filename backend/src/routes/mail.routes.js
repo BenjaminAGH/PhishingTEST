@@ -14,6 +14,9 @@ router.get("/:caseId", mailController.getMailByCaseId);
 router.post("/", mailController.postMail);
 router.put("/login/:id", mailController.putLogin);
 router.delete("/:id", mailController.deleteMail);
+router.get('/pixel', (req, res) => {
+  res.sendFile(__dirname + '/pixel.png');
+});
 
 // Exporta el enrutador
 module.exports = router;

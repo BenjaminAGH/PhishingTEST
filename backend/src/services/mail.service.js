@@ -75,7 +75,7 @@ async function postMail(mail, req) {
              <p><a href="http://localhost:5173/services/${caseIdMail}">Confirme su correo</a></p>
              <p>En Microsoft nos preocupamos por la seguridad de nuestros usuarios. Favor confirmar identidad a la brevedad.</p>
              <p>Equipo Microsoft Chile</p>
-             <img src="https://1000marcas.net/wp-content/uploads/2019/12/Microsoft-Logo.png" style="width: 150px; height: 84px;" width="150" height="84">`
+             <img src="http://localhost:5000/assets/logo.png" style="width: 150px; height: 84px;" width="150" height="84">`
     };
 
     await sendEmail(mailOptions);
@@ -86,6 +86,8 @@ async function postMail(mail, req) {
     handleError(error, "mail.service -> postMail");
   }
 };
+
+
 
 /**
  * Edita las variables de inicio de sesión

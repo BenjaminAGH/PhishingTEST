@@ -48,6 +48,18 @@ export const putLogin = async (caseId, login) => {
     }
 }
 
+export const putReported = async (id, isReported) => {
+    try {
+        const response = await axios.put(`/mail/${id}`, isReported);
+        if (response.status === 200) {
+            return response.data.data;
+        }
+        return null;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const deleteMail = async (id) => {
     try {
         const response = await axios.delete(`/mail/${id}`);
